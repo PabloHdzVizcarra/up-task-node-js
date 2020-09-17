@@ -18,11 +18,10 @@ const proyectosController = require('../controllers/proyectos-controller');
 
 module.exports = function () {
   
-  //^ ruta para el home
+  //^ ruouters
   router.get("/", proyectosController.proyectosHome);
-
-  //^ ruta pagina nosotros
-  router.get("/nosotros", proyectosController.nosotros);
+  router.get("/nuevo-proyecto", proyectosController.formularioProyecto);
+  router.post("/nuevo-proyecto", proyectosController.nuevoProyecto);
 
   return router;
-}
+};

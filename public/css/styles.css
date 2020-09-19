@@ -77,10 +77,31 @@ body {
   border: none;
   cursor: pointer;
   text-transform: uppercase;
+  text-decoration: none;
+  height: min-content;
+
 }
 
 .btn:hover {
   background-color: hsl(75, 10%, 80%);
+}
+
+.btn-delete {
+  padding: 15px 20px;
+  cursor: pointer;
+  text-transform: uppercase;
+  background-color: #E53935;
+  color: #ffffff;
+  font-weight: 700;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  height: min-content;
+
+}
+
+.btn-delete:hover {
+  background-color: #D32F2F;
 }
 
 .btn span {
@@ -101,9 +122,13 @@ body {
   font-size: 1.2rem;
 }
 
-.list-projects {
+.panel-list-projects {
   display: flex;
   flex-direction: column;
+}
+
+.panel-list-projects ul li a:hover{
+  color: var(--secondary);
 }
 
 .projects {
@@ -122,6 +147,12 @@ body {
 
 .contenido-principal-title {
   justify-self: center;
+  margin: 20px 0 5px 0;
+}
+
+.contenido-principal-subtitle {
+  margin: 5px 0 5px 0;
+  margin-bottom: 20px;
 }
 
 .add-project {
@@ -179,4 +210,10 @@ body {
   color: var(--text-primary);
   font-size: 1.2rem;
   border: 2px solid #ab000d;
+}
+
+.container-accions {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
 }

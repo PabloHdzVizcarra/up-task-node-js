@@ -1,0 +1,11 @@
+mixin crearProyecto(proyecto = {})
+  form(class="add-project" action=`/nuevo-proyecto/${proyecto.id || ''}` method="POST")
+    .add-project-fieldName
+      label(for="name") Nombre Proyecto:
+      input(value=proyecto.name type="text" id="project-name" name="name" placeholder="Nombre Proyecto")
+    .add-project-sendData
+      input(
+        type="submit" 
+        value=`${proyecto.name ? 'guardar' : "agregar"}` 
+        class="btn")
+      

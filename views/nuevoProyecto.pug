@@ -1,4 +1,5 @@
 extends layout
+include mixins/crearProyecto
 
 block contenido
   .contenido-principal
@@ -7,10 +8,5 @@ block contenido
     if errors
       each error in errors
         .alert #{error.texto}
-
-    form(class="add-project" action="/nuevo-proyecto" method="POST")
-      .add-project-fieldName
-        label(for="name") Nombre Proyecto:
-        input(type="text" id="project-name" name="name" placeholder="Nombre Proyecto")
-      .add-project-sendData
-        input(type="submit" value="Agregar" class="btn")
+    +crearProyecto(proyecto)
+    

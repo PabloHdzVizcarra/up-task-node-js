@@ -4,15 +4,32 @@
   "description": "Project UpTask with Node and MVC",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./index.js"
+    "dev": "nodemon ./index.js",
+    "start": "concurrently \"npm run dev\" \"npm run watch\"",
+    "watch": "webpack --w --mode development"
   },
   "author": "Pablo Hernandez",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.20.0",
+    "concurrently": "^5.3.0",
+    "core-util-is": "^1.0.2",
     "express": "^4.17.1",
-    "pug": "^3.0.0"
+    "express-validator": "^6.6.1",
+    "mysql2": "^2.1.0",
+    "pug": "^3.0.0",
+    "sequelize": "^6.3.5",
+    "sequelize-cli": "^6.2.0",
+    "slug": "^3.3.4",
+    "sweetalert2": "^10.2.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "babel-loader": "^8.1.0",
+    "eslint": "^7.9.0",
+    "nodemon": "^2.0.4",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
   }
 }

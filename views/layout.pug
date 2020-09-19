@@ -16,13 +16,13 @@ html(lang="es")
       aside.container-projects
         .panel-create-project
           a(href="/nuevo-proyecto" class="btn") Nuevo Proyecto
-        .panel.list-projects
+        .panel-list-projects
             h2(class="list-projects-title") Proyectos
             ul#projects.projects
-                li 
-                    a(href="#") Diseño de tienda virtual
-                li 
-                    a(href="#") Diseño de Nuevo blog
-                li 
-                    a(href="#") Diseño de Logotipo
+              if (proyectos.length)
+                each proyecto in proyectos
+                  li
+                    a(href=`/proyectos/${proyecto.url}`) #{proyecto.name}
       block contenido
+
+      script(src="/dist/bundle.js")

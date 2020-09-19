@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const proyectosController = require('../controllers/proyectos-controller');
+const { body } = require('express-validator/check');
 
 //  .use() es un metodo (middleware) que acepta 2 parametros el primero es la ruta y el segundo es una funcion de flecha de 2 parametros
 //  cualquier request que elabores correra los metodos .use()
@@ -15,13 +16,34 @@ const proyectosController = require('../controllers/proyectos-controller');
 //   res.send("hola");
 // });
 
-
 module.exports = function () {
   
-  //^ ruouters
+  //^ routers
   router.get("/", proyectosController.proyectosHome);
   router.get("/nuevo-proyecto", proyectosController.formularioProyecto);
-  router.post("/nuevo-proyecto", proyectosController.nuevoProyecto);
+  router.post("/nuevo-proyecto",
+    body('name').not().isEmpty().trim().escape(), //_ revisamos el body del metodo POST para validacion
+    proyectosController.nuevoProyecto //_ mandamos los datos del metodo POST al controlador
+  );
+
+  // router para el proyecto individual
+  router.get('/proyectos/:url', proyectosController.proyectoPorURL);
+
+  // Actualizar el proyecto
+  router.get('/proyecto/editar/:id',
+    proyectosController.formularioEditar
+  );
+
+  router.post("/nuevo-proyecto/:id",
+  body('name').not().isEmpty().trim().escape(),
+    proyectosController.actualizarProyecto,
+  )
+
+  //! Delete Project
+  router.delete(
+    '/proyectos/:url',
+    proyectosController.eliminarProyecto
+  )
 
   return router;
 };

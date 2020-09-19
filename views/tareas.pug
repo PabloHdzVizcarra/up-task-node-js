@@ -1,0 +1,23 @@
+extends layout
+
+block contenido
+  .contenido-principal
+    h1(class="contenido-principal-title") #{namePage}
+    h3(class="contenido-principal-subtitle") #{proyecto.name}
+
+
+
+    // TODO Form:
+
+    // TODO Listado de pendientes:
+
+    // Acciones
+    // pre= vardump(proyecto)
+
+    .container-accions
+      a(href=`/proyecto/editar/${proyecto.id}` class="btn") Editar Proyecto
+      button#delete-project(
+        type="button" 
+        class="btn-delete"
+        data-url-project=proyecto.url
+      ) Eliminar

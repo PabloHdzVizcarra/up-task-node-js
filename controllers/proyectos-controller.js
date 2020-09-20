@@ -1,4 +1,5 @@
 const Proyectos = require("../models/Proyectos");
+const TaskModel = require('../models/Tasks');
 
 // controlador para la ruta home
 exports.proyectosHome = async (req, res) => {
@@ -8,6 +9,7 @@ exports.proyectosHome = async (req, res) => {
   res.render("index", {
     namePage: "Proyectos",
     proyectos, //_ pass data to view
+    blink: "Blink 182"
   });
 };
 
@@ -25,9 +27,6 @@ exports.formularioProyecto = async (req, res) => {
 exports.nuevoProyecto = async (req, res) => {
   // tenemos que elaborar la consulta a la data base
   const proyectos = await Proyectos.findAll();
-
-  // enviar a la consola lo que el usuario escriba
-  console.log(req.body);
 
   // validacion del valor del input
   //* en esta parte podemos manejar js comun
@@ -68,9 +67,23 @@ exports.proyectoPorURL = async (req, res, next) => {
     },
   });
 
-  const [proyectos, proyecto] = await Promise.all(
-    [proyectosPromise, proyectoPromise]
-  );
+  const [proyectos, proyecto] = await Promise.all([
+    proyectosPromise,
+    proyectoPromise,
+  ]);
+
+
+  // check current project task
+  const tasks = await TaskModel.findAll({
+    where: {
+      proyectoId: proyecto.id
+    },
+    include: [ //* with this method we include data to the query
+      {
+        model: Proyectos
+      }
+    ]
+  });
 
   if (!proyecto) return next();
 
@@ -79,6 +92,7 @@ exports.proyectoPorURL = async (req, res, next) => {
     namePage: "Tareas del Proyecto",
     proyecto,
     proyectos,
+    tasks
   });
 };
 
@@ -89,19 +103,20 @@ exports.formularioEditar = async (req, res) => {
   // get data actual element
   const proyectoPromise = Proyectos.findOne({
     where: {
-      id: req.params.id
-    }
+      id: req.params.id,
+    },
   });
 
-  const [proyectos, proyecto] = await Promise.all(
-    [proyectosPromise, proyectoPromise]
-  );
+  const [proyectos, proyecto] = await Promise.all([
+    proyectosPromise,
+    proyectoPromise,
+  ]);
 
   // render view
   res.render("nuevoProyecto", {
     namePage: "Editar Proyecto",
     proyectos,
-    proyecto
+    proyecto,
   });
 };
 
@@ -128,15 +143,23 @@ exports.actualizarProyecto = async (req, res) => {
       proyectos,
     });
   } else {
-    await Proyectos.update(
-      { name: name },
-      { where: { id: req.params.id } }
-    );
+    await Proyectos.update({ name: name }, { where: { id: req.params.id } });
 
     res.redirect("/");
   }
-}
+};
 
 exports.eliminarProyecto = async (req, res, next) => {
-  console.log(req.params);
-}
+  // request tiene la informacion
+  // puedes usar query o params para obtener los datos
+  const { url } = req.params;
+
+  // metodo de sequelize para eliminar
+  const resultOfDeleteProject = await Proyectos.destroy({
+    where: { url: url },
+  });
+
+  if (!resultOfDeleteProject) return next();
+
+  res.status(200).send("Proyecto eliminado correctamente");
+};

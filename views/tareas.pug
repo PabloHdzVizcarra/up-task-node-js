@@ -5,14 +5,27 @@ block contenido
     h1(class="contenido-principal-title") #{namePage}
     h3(class="contenido-principal-subtitle") #{proyecto.name}
 
+    form.form-task(action=`/proyectos/${proyecto.url}` method='POST')
+      .form-task--field-name
+        label(for="task" class='form-task--field-name__name') Tarea: 
+        input(type="text" name='task' placeholder='Nombre de tarea' class='form-task--field-name__input')
+      .form-task--field-send
+        input(type="submit" value='Agregar' class='btn')
 
-
-    // TODO Form:
-
-    // TODO Listado de pendientes:
-
-    // Acciones
-    // pre= vardump(proyecto)
+    div(class='pending-task js-pending-task')
+      ul(class='pending-task__list')
+        if tasks.length
+          each task in tasks
+            li(class='pending-task__task' data-task=task.id)
+              p(class='pending-task__name') #{task.task}
+              .pending-task__icons
+                if task.state
+                  i.far.fa-check-square.pending-task__icon-ok.task-completed
+                else
+                  i.far.fa-check-square.pending-task__icon-ok
+                i.fas.fa-trash.pending-task__icon-delete
+        else
+          p No hay tareas en este proyecto
 
     .container-accions
       a(href=`/proyecto/editar/${proyecto.id}` class="btn") Editar Proyecto

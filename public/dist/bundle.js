@@ -86,6 +86,17 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./functions/change-task-status.js":
+/*!*****************************************!*\
+  !*** ./functions/change-task-status.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("exports.changeTaskStatus = function (task) {\n  var state = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;\n  return task.state === state ? task.state = 1 : task.state = state;\n};\n\n//# sourceURL=webpack:///./functions/change-task-status.js?");
+
+/***/ }),
+
 /***/ "./node_modules/axios/index.js":
 /*!*************************************!*\
   !*** ./node_modules/axios/index.js ***!
@@ -427,7 +438,7 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;function
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _modules_proyectos__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/proyectos */ \"./public/js/modules/proyectos.js\");\n\n\n//# sourceURL=webpack:///./public/js/app.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _modules_proyectos__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/proyectos */ \"./public/js/modules/proyectos.js\");\n/* harmony import */ var _modules_tasks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/tasks */ \"./public/js/modules/tasks.js\");\n/* harmony import */ var _functions_change_task_status__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../functions/change-task-status */ \"./functions/change-task-status.js\");\n/* harmony import */ var _functions_change_task_status__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_functions_change_task_status__WEBPACK_IMPORTED_MODULE_2__);\n\n\n //* podemos crear un solo archivo llamado app, y en el importar todo el javascript que vayamos agregando al proyecto, de esta manera todo estara en un solo lugar\n\n//# sourceURL=webpack:///./public/js/app.js?");
 
 /***/ }),
 
@@ -439,7 +450,19 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _mod
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"btnDelete\", function() { return btnDelete; });\n/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ \"./node_modules/sweetalert2/dist/sweetalert2.all.js\");\n/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ \"./node_modules/axios/index.js\");\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);\n\n\nvar btnDelete = document.querySelector(\"#delete-project\");\n\nif (btnDelete) {\n  btnDelete.addEventListener(\"click\", function (event) {\n    sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({\n      title: \"Deseas borrar este proyecto?\",\n      text: \"Un proyecto eliminado no se puede recuperar\",\n      icon: \"warning\",\n      showCancelButton: true,\n      confirmButtonColor: \"#3085d6\",\n      cancelButtonColor: \"#d33\",\n      confirmButtonText: \"Si, Eliminar\",\n      cancelButtonText: \"No, Cancelar\"\n    }).then(function (result) {\n      if (result.isConfirmed) {\n        var projectURL = event.target.dataset.urlProject;\n        var url = \"\".concat(location.href);\n        axios__WEBPACK_IMPORTED_MODULE_1___default.a[\"delete\"](url, {\n          params: {\n            url: url\n          }\n        }).then(function () {\n          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire(\"Eliminado\", \"El proyecto fue eliminado con exito.\", \"success\");\n        })[\"catch\"](console.log);\n      } //window.location.href = '/';\n\n    });\n  });\n}\n\n//# sourceURL=webpack:///./public/js/modules/proyectos.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"btnDelete\", function() { return btnDelete; });\n/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ \"./node_modules/sweetalert2/dist/sweetalert2.all.js\");\n/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ \"./node_modules/axios/index.js\");\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);\n\n\nvar btnDelete = document.querySelector(\"#delete-project\");\n\nif (btnDelete) {\n  btnDelete.addEventListener(\"click\", function () {\n    sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({\n      title: \"Deseas borrar este proyecto?\",\n      text: \"Un proyecto eliminado no se puede recuperar\",\n      icon: \"warning\",\n      showCancelButton: true,\n      confirmButtonColor: \"#3085d6\",\n      cancelButtonColor: \"#d33\",\n      confirmButtonText: \"Si, Eliminar\",\n      cancelButtonText: \"No, Cancelar\"\n    }).then(function (result) {\n      if (result.isConfirmed) {\n        //  location.href hace referencia a la url actual\n        var url = \"\".concat(location.href);\n        axios__WEBPACK_IMPORTED_MODULE_1___default.a[\"delete\"](url, {\n          params: {\n            url: url\n          }\n        }).then(function (result) {\n          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire(\"Eliminado\", result.data, \"success\");\n        })[\"catch\"](function () {\n          //_ se maneja el error en caso de que suceda una falla\n          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({\n            type: 'error',\n            title: 'Hubo un error',\n            text: 'No se pudo eliminar el proyecto'\n          });\n        });\n      }\n    });\n  });\n}\n\n//# sourceURL=webpack:///./public/js/modules/proyectos.js?");
+
+/***/ }),
+
+/***/ "./public/js/modules/tasks.js":
+/*!************************************!*\
+  !*** ./public/js/modules/tasks.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ \"./node_modules/axios/index.js\");\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ \"./node_modules/sweetalert2/dist/sweetalert2.all.js\");\n/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);\n\n\nvar tasks = document.querySelector(\".js-pending-task\");\n\nif (tasks) {\n  tasks.addEventListener(\"click\", function (event) {\n    // verificamos si presionamos el boton de check\n    if (event.target.classList.contains(\"fa-check-square\")) {\n      var icon = event.target;\n      var taskID = icon.parentElement.parentElement.dataset.task; // add a request to update task\n\n      var url = \"\".concat(location.origin, \"/tareas/\").concat(taskID);\n      axios__WEBPACK_IMPORTED_MODULE_0___default.a.patch(url, {\n        taskID: taskID\n      }).then(function (response) {\n        if (response.status === 200) {\n          icon.classList.toggle(\"task-completed\");\n        }\n      });\n    }\n\n    if (event.target.classList.contains(\"fa-trash\")) {\n      var taskHTML = event.target.parentElement.parentElement;\n\n      var _taskID = parseInt(taskHTML.dataset.task);\n\n      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({\n        title: \"Deseas borrar este tarea?\",\n        text: \"Una tarea eliminada no se puede recuperar\",\n        icon: \"warning\",\n        showCancelButton: true,\n        confirmButtonColor: \"#3085d6\",\n        cancelButtonColor: \"#d33\",\n        confirmButtonText: \"Si, Eliminar\",\n        cancelButtonText: \"No, Cancelar\"\n      }).then(function (result) {\n        if (result.value) {\n          var _url = \"\".concat(location.origin, \"/tareas/\").concat(_taskID);\n\n          axios__WEBPACK_IMPORTED_MODULE_0___default.a[\"delete\"](_url, {\n            params: {\n              taskID: _taskID\n            }\n          }).then(function (resp) {\n            if (resp.status === 200) {\n              // Delete node task\n              taskHTML.parentElement.removeChild(taskHTML); // Alert Optional\n\n              sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire('Tarea Eliminada', resp.data, 'success');\n            }\n          });\n        }\n      });\n    }\n  });\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (tasks);\n\n//# sourceURL=webpack:///./public/js/modules/tasks.js?");
 
 /***/ })
 

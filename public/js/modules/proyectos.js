@@ -4,7 +4,7 @@ import axios from "axios";
 export const btnDelete = document.querySelector("#delete-project");
 
 if (btnDelete) {
-  btnDelete.addEventListener("click", (event) => {
+  btnDelete.addEventListener("click", () => {
     Swal.fire({
       title: "Deseas borrar este proyecto?",
       text: "Un proyecto eliminado no se puede recuperar",
@@ -16,21 +16,22 @@ if (btnDelete) {
       cancelButtonText: "No, Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        const projectURL = event.target.dataset.urlProject;
+        //  location.href hace referencia a la url actual
         const url = `${location.href}`;
 
-        axios.delete(url, { params: { url } })
-          .then(() => {
-            Swal.fire(
-              "Eliminado",
-              "El proyecto fue eliminado con exito.",
-              "success"
-            );
+        axios
+          .delete(url, { params: { url } })
+          .then((result) => {
+            Swal.fire("Eliminado", result.data, "success");
           })
-          .catch(console.log);
+          .catch(() => { //_ se maneja el error en caso de que suceda una falla
+            Swal.fire({
+              type:'error',
+              title: 'Hubo un error',
+              text: 'No se pudo eliminar el proyecto'
+            })
+          });
       }
-
-      //window.location.href = '/';
     });
   });
 }

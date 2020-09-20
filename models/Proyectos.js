@@ -11,8 +11,8 @@ const Proyectos = db.define(
       primaryKey: true,
       autoIncrement: true,
     },
-    name: Sequelize.STRING,
-    url: Sequelize.STRING,
+    name: Sequelize.STRING(100),
+    url: Sequelize.STRING(100),
   },
   {
     hooks: { //Este hook se usa para revisar datos antes de insertarlos en la DB

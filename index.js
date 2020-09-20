@@ -7,6 +7,7 @@ const helpers = require('./helpers'); // helpers
 
 // importar el modelo del proyecto
 require('./models/Proyectos');
+require('./models/Tasks');
 
 db.sync()
   .then(() => console.log('Conectado al servidor'))

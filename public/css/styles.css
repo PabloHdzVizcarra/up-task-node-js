@@ -7,6 +7,7 @@
   --secondary-dark: #c49000;
   --text-primary: #ffffff;
   --text-secondary: #000000;
+  --completed: #369A1A;
 }
 
 body {
@@ -17,7 +18,7 @@ body {
 .container {
   display: grid;
   grid-template-columns: 20% 80%;
-  grid-template-rows: 1fr;
+  grid-template-rows: auto;
   height: 90%;
 }
 .main-title {
@@ -29,6 +30,9 @@ body {
   padding: 10px 20px;
   position: relative;
   height: auto;
+  -webkit-box-shadow: 0px 10px 6px -7px rgba(109,109,109,1);
+  -moz-box-shadow: 0px 10px 6px -7px rgba(109,109,109,1);
+  box-shadow: 0px 10px 6px -7px rgba(109,109,109,1);
 }
 
 .main-title a {
@@ -142,7 +146,8 @@ body {
 .contenido-principal {
   display: grid;
   justify-items: center;
-  grid-template-rows: max-content max-content;
+  grid-template-rows: min-content min-content min-content;
+  gap: 10px;
 }
 
 .contenido-principal-title {
@@ -215,5 +220,99 @@ body {
 .container-accions {
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
+}
+
+.form-task {
+  background-color: var(--primary-light);
+  padding: 20px;
+  color: var(--text-primary);
+  width: 70%;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+}
+
+.form-task--field-name {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.form-task--field-name__name {
+  font-size: 1.1rem;
+  margin-right: 10px;
+  font-weight: 600;
+}
+
+.form-task--field-name__input {
+  flex: 1 1 auto;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+}
+
+.form-task--field-send {
+  align-self: flex-end;
+}
+
+.pending-task {
+  display: flex;
+  width: 70%;
+  background-color: var(--secondary);
+  padding: 20px;
+  flex-direction: column;
+  border-radius: 4px;
+  border: 4px solid rgba(0, 0, 0, .1);
+  
+}
+
+.pending-task__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pending-task__task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pending-task__name {
+  margin: 5px;
+  font-weight: 300;
+  font-size: 20px;
+  text-transform: capitalize;
+}
+
+.pending-task__icons {
+  display: flex;
+  align-items: center;
+  height: max-content;
+}
+
+.pending-task__icon-ok {
+  cursor: pointer;
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.pending-task__icon-delete {
+  cursor: pointer;
+  font-size: 20px;
+  color: #FF0404;
+}
+
+.pending-task__icon-delete:hover {
+  color: hsl(0, 100%, 40%);
+}
+
+.pending-task__icon-ok:hover {
+  color: var(--completed);
+}
+
+.task-completed {
+  color: var(--completed);
 }

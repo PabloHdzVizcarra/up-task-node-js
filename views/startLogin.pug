@@ -1,0 +1,50 @@
+html(lang="es")
+  head
+    include partials/header
+  body(class='body-color')
+    div(class='container-form')
+      h1(class='container-form__title') Iniciar Sesion
+      if (errorMessage)
+        p(class='alert') #{errorMessage}
+
+      form#js-create-account-form(
+        class='container-form__form'
+        method='POST' 
+        action='/iniciar-sesion' 
+      )
+        div(class='container-form__form__field')
+          label(for="email") E-mail:
+          input(
+            class='container-form__form__field__input'
+            type="email" 
+            name='email' 
+            placeholder='Tu Email'
+            value= email
+          )
+        div(class='container-form__form__field')
+          label(for="password") Password:
+          input(
+            class='container-form__form__field__input'
+            type="password" 
+            name='password' 
+            placeholder='Tu Password'
+            value= password
+          )
+        div(class='container-form__form__field-send')
+          input(
+            type="submit" 
+            class='container-form__form__field__input-submit' 
+            value='Iniciar Sesion'
+          )
+        div(class='container-form__form__actions')
+          a(
+            href="/crear-cuenta"
+            class='container-form__form__actions-register'
+          ) Aun no tienes cuenta? <br> Crea una gratis
+
+          a(
+            href="/restablecer"
+            class='container-form__form__actions-forget'
+          ) Olvidaste tu password?
+
+    script(src="/dist/bundle.js")

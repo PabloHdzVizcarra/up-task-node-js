@@ -16,16 +16,21 @@ block contenido
       ul(class='pending-task__list')
         if tasks.length
           each task in tasks
-            li(class='pending-task__task' data-task=task.id)
+            li(class='pending-task__task js-task' data-task=task.id)
               p(class='pending-task__name') #{task.task}
               .pending-task__icons
                 if task.state
-                  i.far.fa-check-square.pending-task__icon-ok.task-completed
+                  i.far.fa-check-square.pending-task__icon-ok.task-completed.js-task-completed
                 else
                   i.far.fa-check-square.pending-task__icon-ok
                 i.fas.fa-trash.pending-task__icon-delete
         else
           p No hay tareas en este proyecto
+
+    div(class='advance')
+      h2 Avance del proyecto
+      div#js-advance-bar(class='advance__bar')
+        div#js-advance-bar-porcent(class='advance__bar__porcent')
 
     .container-accions
       a(href=`/proyecto/editar/${proyecto.id}` class="btn") Editar Proyecto

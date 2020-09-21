@@ -1,17 +1,11 @@
 <!DOCTYPE html>
 html(lang="es")
   head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    link(rel="stylesheet", href="/css/styles.css")
-    link(rel="stylesheet", href="/css/normalize.css")
-    link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;300;400;600;700;900&display=swap")
-    link(rel='stylesheet', href='https://pro.fontawesome.com/releases/v5.10.0/css/all.css', integrity='sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p', crossorigin='anonymous')
-    title #{namePage}
+    include partials/header
   body
     header.main-title
       h1 Up Tasks - Administrador de proyectos
-      a(href="#" class="main-title-btnClose") Cerrar sesion
+      a(href="/cerrar-sesion" class="main-title-btnClose") Cerrar sesion
 
     main.container
       aside.container-projects

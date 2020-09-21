@@ -12,12 +12,11 @@ exports.addTask = async (req, res, next) => {
 
   // read input value
   const { task } = req.body;
+
   // add task status to false
   const taskState = 0;
   // add current id project
   const projectID = project.id;
-
-  console.log(task, taskState, projectID);
 
   // insert to database
   const result = await TaskModel.create({

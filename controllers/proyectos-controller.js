@@ -3,30 +3,45 @@ const TaskModel = require('../models/Tasks');
 
 // controlador para la ruta home
 exports.proyectosHome = async (req, res) => {
-  //_ Get projects of data base
-  const proyectos = await Proyectos.findAll();
+
+  const userFromSessionLib = res.locals.dataUser.id;
+  const projectsFromDatabase = await Proyectos.findAll({
+    where: {
+      userId: userFromSessionLib
+    }
+  });
 
   res.render("index", {
     namePage: "Proyectos",
-    proyectos, //_ pass data to view
+    proyectos: projectsFromDatabase, //_ pass data to view
     blink: "Blink 182"
   });
 };
 
 exports.formularioProyecto = async (req, res) => {
   // tenemos que elaborar la consulta a la data base
-  const proyectos = await Proyectos.findAll();
+  const userFromSessionLib = res.locals.dataUser.id;
+  const projectsFromDatabase = await Proyectos.findAll({
+    where: {
+      userId: userFromSessionLib
+    }
+  });
 
   // en render tienes que poner el nombre de tu archivo que usaras
   res.render("nuevoProyecto", {
     namePage: "Nuevo Proyecto",
-    proyectos,
+    proyectos: projectsFromDatabase,
   });
 };
 
 exports.nuevoProyecto = async (req, res) => {
-  // tenemos que elaborar la consulta a la data base
-  const proyectos = await Proyectos.findAll();
+
+  const userFromSessionLib = res.locals.dataUser.id;
+  const projectsFromDatabase = await Proyectos.findAll({
+    where: {
+      userId: userFromSessionLib
+    }
+  });
 
   // validacion del valor del input
   //* en esta parte podemos manejar js comun
@@ -44,26 +59,34 @@ exports.nuevoProyecto = async (req, res) => {
     res.render("nuevoProyecto", {
       namePage: "Nuevo Proyecto",
       errors,
-      proyectos,
+      proyectos: projectsFromDatabase,
     });
   } else {
     // creamos una URL para el proyecto
     // const url = slug(name).toLowerCase();
 
-    await Proyectos.create({ name });
+    //_ obtenemos el id del usuario por variables locals
+    const userFromSessionLib = res.locals.dataUser.id;
+
+    await Proyectos.create({ name, userId: userFromSessionLib });
     res.redirect("/");
   }
 };
 
 exports.proyectoPorURL = async (req, res, next) => {
-  // tenemos que elaborar la consulta a la data base
-  const proyectosPromise = Proyectos.findAll();
+  const userFromSessionLib = res.locals.dataUser.id;
+  const proyectosPromise = Proyectos.findAll({
+    where: {
+      userId: userFromSessionLib
+    }
+  });
 
   // traemos el proyecto de la Data Base
   // metodo findOne (Sequelize) para obtener 1 solo elemento
   const proyectoPromise = Proyectos.findOne({
     where: {
       url: req.params.url,
+      userId: userFromSessionLib
     },
   });
 
@@ -97,13 +120,19 @@ exports.proyectoPorURL = async (req, res, next) => {
 };
 
 exports.formularioEditar = async (req, res) => {
-  // tenemos que elaborar la consulta a la data base
-  const proyectosPromise = Proyectos.findAll();
+
+  const userFromSessionLib = res.locals.dataUser.id;
+  const proyectosPromise = Proyectos.findAll({
+    where: {
+      userId: userFromSessionLib
+    }
+  });
 
   // get data actual element
   const proyectoPromise = Proyectos.findOne({
     where: {
       id: req.params.id,
+      userId: userFromSessionLib
     },
   });
 
@@ -122,7 +151,12 @@ exports.formularioEditar = async (req, res) => {
 
 exports.actualizarProyecto = async (req, res) => {
   // tenemos que elaborar la consulta a la data base
-  const proyectos = await Proyectos.findAll();
+  const userFromSessionLib = res.locals.dataUser.id;
+  const projectsFromDatabase = await Proyectos.findAll({
+    where: {
+      userId: userFromSessionLib
+    }
+  });
 
   // validacion del valor del input
   //* en esta parte podemos manejar js comun
@@ -140,7 +174,7 @@ exports.actualizarProyecto = async (req, res) => {
     res.render("nuevoProyecto", {
       namePage: "Nuevo Proyecto",
       errors,
-      proyectos,
+      proyectos: projectsFromDatabase,
     });
   } else {
     await Proyectos.update({ name: name }, { where: { id: req.params.id } });

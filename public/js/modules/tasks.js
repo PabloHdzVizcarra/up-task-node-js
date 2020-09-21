@@ -1,5 +1,6 @@
 import axios from "axios";
 import Swal from "sweetalert2";
+import { updateAdvance } from '../functions/current-project-progress';
 
 const tasks = document.querySelector(".js-pending-task");
 
@@ -13,12 +14,17 @@ if (tasks) {
       // add a request to update task
       const url = `${location.origin}/tareas/${taskID}`;
       axios
-        .patch(url, {
+        .patch(url, { //_ el patch actualiza los datos
           taskID,
         })
         .then((response) => {
           if (response.status === 200) {
             icon.classList.toggle("task-completed");
+            icon.classList.toggle("js-task-completed");
+
+
+            //_ funcion que actualiza la barra de avance
+            updateAdvance(); 
           }
         });
     }
@@ -57,6 +63,9 @@ if (tasks) {
                   resp.data,
                   'success'
                 )
+
+                //_ cuando la tarea se elemina se actualiza la barra
+                updateAdvance();
               }
             });
         }

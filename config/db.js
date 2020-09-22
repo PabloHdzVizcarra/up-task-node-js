@@ -1,20 +1,24 @@
 const { Sequelize } = require("sequelize");
+require('dotenv').config({ path: 'variables.env' });
 
-const db = new Sequelize("uptasknode", "pablohdz", "seguimos_182", {
-  host: "localhost",
-  dialect: "mysql",
-  port: "3306",
-  operatorsAliases: false,
-  define: {
-    timestamps: false,
-  },
+const db = new Sequelize(
+    process.env.DB_NAME, 
+    process.env.DB_USER,
+    process.env.DB_PASSWORD,
+  {
+    host: process.env.DB_HOST,
+    dialect: "mysql",
+    port: process.env.DB_PORT,
+    define: {
+      timestamps: false,
+    },
 
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000,
-  },
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000,
+    },
 });
 
 // configuracion de sequelize para interectuar con el ORM

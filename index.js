@@ -68,7 +68,7 @@ app.use((req, res, next) => {
 // se usan los routes definidos en la carpeta 
 app.use('/', routes());
 
-const host = process.env.HOST || '0.0.0.0';
+// const host = process.env.HOST || '0.0.0.0';
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => 

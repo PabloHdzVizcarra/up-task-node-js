@@ -36,6 +36,12 @@ const UserModel = db.define(
         },
       },
     },
+    token: Sequelize.STRING,
+    expirationTimeToken: Sequelize.DATE,
+    active: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0
+    }
   },
   {
     hooks: {

@@ -16,7 +16,10 @@ passport.use(
     async (email, password, done) => {
       try {
         const user = await UserModel.findOne({
-          where: { email: email },
+          where: {
+            email: email,
+            active: 1 //_ le decimos a passport que solo activos pueden loguear
+          },
         });
 
         //_ el usuario si existe

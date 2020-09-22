@@ -4,8 +4,13 @@ html(lang="es")
   body(class='body-color')
     div(class='container-form')
       h1(class='container-form__title') Iniciar Sesion
-      if (errorMessage)
-        p(class='alert') #{errorMessage}
+
+      if locals.messages
+        div(class='alerts')
+          each category in Object.keys(locals.messages)
+            each error in messages[category]
+              div(class=`alerts__alert ${category}`)
+                p #{error}
 
       form#js-create-account-form(
         class='container-form__form'

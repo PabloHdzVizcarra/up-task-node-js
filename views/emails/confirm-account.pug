@@ -1,0 +1,11 @@
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    style
+      include ./email.css
+  body
+    h2 Confirma tu cuenta en Up Task
+    p Ya casi esta todo listo, ahora solo te falta presinar el boton
+    a(href=`${urlToConfirmEmail}`) Confirmar cuenta
+    p Si no puedes accedes a este enlace visita #{urlToConfirmEmail}
